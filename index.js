@@ -1,7 +1,8 @@
 'use strict'
-import React, { Component } from 'react'
+import React, {
+  Component,
+} from 'react'
 import PropTypes from 'prop-types'
-
 
 import {
   StyleSheet,
@@ -72,7 +73,7 @@ class EmojiPicker extends Component {
         key={category}
         category={category}
         finishedLoading={() => this._timeout = setTimeout(this.loadNextCategory.bind(this), 100)} />
-      )
+    )
   }
 
   render() {
@@ -97,22 +98,27 @@ class EmojiCategory extends Component {
     let emojis = emojisByCategory[this.props.category]
     let size = this.props.emojiSize || defaultEmojiSize
     let style = {
-      fontSize: size-4,
+      fontSize: size-10,
       color: 'black',
       textAlign: 'center',
+    };
+
+    const touchableStyle = {
+      height: size+10,
+      width: size+10,
       padding: padding,
-    }
+    };
 
     return (
-     <View style={style.categoryOuter}>
+      <View style={style.categoryOuter}>
         <Text style={[styles.headerText, this.props.headerStyle]}>{this.props.category}</Text>
         <View style={styles.categoryInner}>
           {emojis.map(e =>
-            <Text style={style}
-              key={e}
-              onPress={() => this.props.onEmojiSelected(e)}>
-              {e}
-            </Text>
+            <TouchableOpacity key={e} onPress={() => this.props.onEmojiSelected(e)} style={touchableStyle}>
+              <Text style={style}>
+                {e}
+              </Text>
+            </TouchableOpacity>
           )}
         </View>
       </View>
